@@ -26,6 +26,7 @@ module.exports = {
   ignorePatterns: ['dist', '.eslintrc.cjs', 'node_modules'],
   plugins: ['react-refresh'],
   rules: {
+     "react/react-in-jsx-scope": 0,
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
