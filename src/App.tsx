@@ -32,7 +32,7 @@ const App = () => {
     <ConfigProvider>
       <HappyProvider>
         <Layout>
-          <Button type="primary" onClick={increasePopulation}>
+          <Button className="m-4" type="primary" onClick={increasePopulation}>
             Click Me {bears}
           </Button>
           <Button onClick={() => useStore.getState().removeAllBears()}>Reset</Button>
