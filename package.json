@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/weishaodaren/form-editable#readme",
   "devDependencies": {
+    "@types/node": "^20.4.9",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.3.0",

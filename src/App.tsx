@@ -3,6 +3,8 @@ import { Button, ConfigProvider } from 'antd';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
+import Layout from '@/pages/Layout';
+
 type BearState = {
   bears: number;
   increasePopulation: () => void;
@@ -29,10 +31,12 @@ const App = () => {
   return (
     <ConfigProvider>
       <HappyProvider>
-        <Button type="primary" onClick={increasePopulation}>
-          Click Me {bears}
-        </Button>
-        <Button onClick={() => useStore.getState().removeAllBears()}>Reset</Button>
+        <Layout>
+          <Button type="primary" onClick={increasePopulation}>
+            Click Me {bears}
+          </Button>
+          <Button onClick={() => useStore.getState().removeAllBears()}>Reset</Button>
+        </Layout>
       </HappyProvider>
     </ConfigProvider>
   );

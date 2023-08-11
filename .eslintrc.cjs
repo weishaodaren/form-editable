@@ -26,10 +26,20 @@ module.exports = {
   ignorePatterns: ['dist', '.eslintrc.cjs', 'node_modules'],
   plugins: ['react-refresh'],
   rules: {
-     "react/react-in-jsx-scope": 0,
+    "react/react-in-jsx-scope": 0,
     'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
+      1,
+      {
+        allowConstantExport: true
+      },
+    ],
+    "import/no-unresolved": [
+      2,
+      {
+        ignore: [
+          ".",
+        ],
+      },
     ],
   },
 }
