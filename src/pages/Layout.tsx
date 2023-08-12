@@ -1,24 +1,47 @@
 import type { PropsWithChildren, FC } from 'react';
 
-import { Layout as AntdLayout, Space } from 'antd';
+import { Panel, PanelGroup } from 'react-resizable-panels';
 
-const { Header, Sider, Content, Footer } = AntdLayout;
+import styles from './layout.module.css';
+
+import { ResizeHandle } from '@/components';
 
 /**
  * Layout
  */
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Space direction="vertical" className="w-full h-full" size={[0, 48]}>
-      <AntdLayout>
-        <Sider className="text-center h-10 bg-cyan-700 text-sky-50">Sider</Sider>
-        <AntdLayout>
-          <Header className="text-center h-10 bg-cyan-500 text-sky-200">Header</Header>
-          <Content className="text-center h-10 bg-cyan-300 text-sky-400">{children}</Content>
-          <Footer className="text-center h-10 bg-cyan-100 text-sky-600">Footer</Footer>
-        </AntdLayout>
-      </AntdLayout>
-    </Space>
+    <div className={styles.PanelGroupWrapper}>
+      <PanelGroup className={styles.PanelGroup} direction="horizontal">
+        <Panel className={styles.PanelRow} defaultSize={20}>
+          <div className={styles.Centered}>{children}</div>
+        </Panel>
+        <ResizeHandle className={styles.ResizeHandle} />
+        <Panel className={styles.PanelRow} minSize={35}>
+          <PanelGroup className={styles.PanelGroup} direction="vertical">
+            <Panel className={styles.PanelColumn} defaultSize={35}>
+              <div className={styles.Centered}>{children}</div>
+            </Panel>
+            <ResizeHandle className={styles.ResizeHandle} />
+            <Panel className={styles.PanelColumn}>
+              <PanelGroup className={styles.PanelGroup} direction="horizontal">
+                <Panel className={styles.PanelRow}>
+                  <div className={styles.Centered}>{children}</div>
+                </Panel>
+                <ResizeHandle className={styles.ResizeHandle} />
+                <Panel className={styles.PanelRow}>
+                  <div className={styles.Centered}>{children}</div>
+                </Panel>
+              </PanelGroup>
+            </Panel>
+          </PanelGroup>
+        </Panel>
+        <ResizeHandle className={styles.ResizeHandle} />
+        <Panel className={styles.PanelRow} defaultSize={20}>
+          <div className={styles.Centered}>{children}</div>
+        </Panel>
+      </PanelGroup>
+    </div>
   );
 };
 
