@@ -11,34 +11,34 @@ import { ResizeHandle } from '@/components';
  */
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className={styles.PanelGroupWrapper}>
-      <PanelGroup className={styles.PanelGroup} direction="horizontal">
-        <Panel className={styles.PanelRow} defaultSize={20}>
-          <div className={styles.Centered}>{children}</div>
+    <div className="h-screen">
+      <PanelGroup className="text-base" direction="horizontal">
+        <Panel className="flex flex-row" defaultSize={20}>
+          <div className="panel-centered">{children}</div>
         </Panel>
         <ResizeHandle className={styles.ResizeHandle} />
-        <Panel className={styles.PanelRow} minSize={35}>
-          <PanelGroup className={styles.PanelGroup} direction="vertical">
-            <Panel className={styles.PanelColumn} defaultSize={35}>
-              <div className={styles.Centered}>{children}</div>
+        <Panel className="flex flex-row" minSize={35}>
+          <PanelGroup className="text-base" direction="vertical">
+            <Panel className="flex flex-col" defaultSize={35}>
+              <div className="panel-centered">{children}</div>
             </Panel>
             <ResizeHandle className={styles.ResizeHandle} />
-            <Panel className={styles.PanelColumn}>
-              <PanelGroup className={styles.PanelGroup} direction="horizontal">
-                <Panel className={styles.PanelRow}>
-                  <div className={styles.Centered}>{children}</div>
+            <Panel className="flex flex-col">
+              <PanelGroup className="text-base" direction="horizontal">
+                <Panel className="flex flex-row">
+                  <div className="panel-centered">{children}</div>
                 </Panel>
                 <ResizeHandle className={styles.ResizeHandle} />
-                <Panel className={styles.PanelRow}>
-                  <div className={styles.Centered}>{children}</div>
+                <Panel className="flex flex-row">
+                  <div className="panel-centered">{children}</div>
                 </Panel>
               </PanelGroup>
             </Panel>
           </PanelGroup>
         </Panel>
         <ResizeHandle className={styles.ResizeHandle} />
-        <Panel className={styles.PanelRow} defaultSize={20}>
-          <div className={styles.Centered}>{children}</div>
+        <Panel className="flex flex-row" defaultSize={20}>
+          <div className="panel-centered">{children}</div>
         </Panel>
       </PanelGroup>
     </div>

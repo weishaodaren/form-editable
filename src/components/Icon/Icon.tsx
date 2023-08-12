@@ -1,7 +1,5 @@
 import type { FC } from 'react';
 
-import styles from './index.module.css';
-
 type IconType =
   | 'chevron-down'
   | 'close'
@@ -75,7 +73,7 @@ const Icon: FC<IconProps> = ({ className = '', type }) => {
   }
 
   return (
-    <svg className={[className, styles.Icon].join(' ')} viewBox="0 0 24 24">
+    <svg className={[className, 'w-4', 'h-4', 'flex-[0_0_1rem]', 'fill-current'].join(' ')} viewBox="0 0 24 24">
       <path fill="currentColor" d={path} />
     </svg>
   );
