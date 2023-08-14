@@ -2,8 +2,6 @@ import type { PropsWithChildren, FC } from 'react';
 
 import { Panel, PanelGroup } from 'react-resizable-panels';
 
-import styles from './layout.module.css';
-
 import { ResizeHandle } from '@/components';
 
 /**
@@ -16,19 +14,19 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
         <Panel className="flex flex-row" defaultSize={20}>
           <div className="panel-centered">{children}</div>
         </Panel>
-        <ResizeHandle className={styles.ResizeHandle} />
+        <ResizeHandle />
         <Panel className="flex flex-row" minSize={35}>
           <PanelGroup className="text-base" direction="vertical">
             <Panel className="flex flex-col" defaultSize={35}>
               <div className="panel-centered">{children}</div>
             </Panel>
-            <ResizeHandle className={styles.ResizeHandle} />
+            <ResizeHandle />
             <Panel className="flex flex-col">
               <PanelGroup className="text-base" direction="horizontal">
                 <Panel className="flex flex-row">
                   <div className="panel-centered">{children}</div>
                 </Panel>
-                <ResizeHandle className={styles.ResizeHandle} />
+                <ResizeHandle />
                 <Panel className="flex flex-row">
                   <div className="panel-centered">{children}</div>
                 </Panel>
@@ -36,7 +34,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
             </Panel>
           </PanelGroup>
         </Panel>
-        <ResizeHandle className={styles.ResizeHandle} />
+        <ResizeHandle />
         <Panel className="flex flex-row" defaultSize={20}>
           <div className="panel-centered">{children}</div>
         </Panel>
