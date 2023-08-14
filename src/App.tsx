@@ -1,3 +1,4 @@
+import { StyleProvider } from '@ant-design/cssinjs';
 import { HappyProvider } from '@ant-design/happy-work-theme';
 import { Button, ConfigProvider } from 'antd';
 import { create } from 'zustand';
@@ -31,12 +32,14 @@ const App = () => {
   return (
     <ConfigProvider>
       <HappyProvider>
-        <Layout>
-          <Button className="m-4" type="primary" onClick={increasePopulation}>
-            Click Me {bears}
-          </Button>
-          <Button onClick={() => useStore.getState().removeAllBears()}>Reset</Button>
-        </Layout>
+        <StyleProvider hashPriority="high">
+          <Layout>
+            <Button className="m-4" type="primary" onClick={increasePopulation}>
+              Click Me {bears}
+            </Button>
+            <Button onClick={() => useStore.getState().removeAllBears()}>Reset</Button>
+          </Layout>
+        </StyleProvider>
       </HappyProvider>
     </ConfigProvider>
   );

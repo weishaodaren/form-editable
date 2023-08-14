@@ -2,7 +2,7 @@ import type { PropsWithChildren, FC } from 'react';
 
 import { Panel, PanelGroup } from 'react-resizable-panels';
 
-import { ResizeHandle, HoverCard } from '@/components';
+import { Sidebar, ResizeHandle, HoverCard } from '@/components';
 
 /**
  * Layout
@@ -12,7 +12,9 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
     <div className="h-screen">
       <PanelGroup className="text-base" direction="horizontal" autoSaveId="persistenceLayoutLeft">
         <Panel className="flex flex-row" defaultSize={20}>
-          <div className="panel-centered">{children}</div>
+          <div className="panel-centered flex grow flex-row flex-wrap justify-stretch justify-items-center">
+            <Sidebar />
+          </div>
         </Panel>
         <ResizeHandle />
         <Panel className="flex flex-row" minSize={35}>
@@ -30,7 +32,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
                 </Panel>
                 <ResizeHandle />
                 <Panel className="flex flex-row">
-                  <div className="panel-centered">{44}</div>
+                  <div className="panel-centered">{children}</div>
                 </Panel>
               </PanelGroup>
             </Panel>

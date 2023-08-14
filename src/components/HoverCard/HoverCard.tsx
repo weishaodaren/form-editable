@@ -1,19 +1,18 @@
-import { useRef, useEffect } from 'react';
+import type { PropsWithChildren } from 'react';
+import { useRef, useEffect, memo, useMemo } from 'react';
 
 import Tilt from 'vanilla-tilt';
 
 import styles from './index.module.css';
 
-const imgUrl = new URL('../../../public/avatar.png', import.meta.url).href;
-
 const defaultOption = {
   reverse: false, // reverse the tilt direction
-  max: 35, // max tilt rotation (degrees)
+  max: 45, // max tilt rotation (degrees)
   startX: 0, // the starting tilt on the X axis, in degrees.
   startY: 0, // the starting tilt on the Y axis, in degrees.
-  perspective: 1000, // Transform perspective, the lower the more extreme the tilt gets.
-  scale: 1.3, // 2 = 200%, 1.5 = 150%, etc..
-  speed: 400, // Speed of the enter/exit transition
+  perspective: 800, // Transform perspective, the lower the more extreme the tilt gets.
+  scale: 0.8, // 2 = 200%, 1.5 = 150%, etc..
+  speed: 1000, // Speed of the enter/exit transition
   transition: true, // Set a transition on enter/exit.
   axis: null, // What axis should be enabled. Can be "x" or "y"
   reset: true, // If the tilt effect has to be reset on exit.
@@ -31,14 +30,22 @@ const defaultOption = {
   gyroscopeMaxAngleY: 45, // This is the top limit of the device angle on Y axis, meaning that a device rotated at this angle would tilt the element as if the mouse was on the bottom border of the element;
 };
 
+type HoverCardProps = Partial<typeof defaultOption>;
+
 /**
  * 卡片悬浮
  */
-const HoverCard = () => {
+const HoverCard = memo(({ children, ...option }: HoverCardProps & PropsWithChildren) => {
   /**
    * Ref
    */
   const cardRef = useRef<HTMLDivElement & { vanillaTilt: Tilt }>(null);
+
+  /**
+   * Memo
+   * @description 配置项
+   */
+  const options = useMemo(() => option, [option]);
 
   /**
    * Effect
@@ -49,23 +56,20 @@ const HoverCard = () => {
 
     const { current } = cardRef;
 
-    Tilt.init(current, defaultOption);
+    Tilt.init(current, { ...defaultOption, ...options });
 
     return () => {
       current.vanillaTilt.destroy?.();
     };
-  }, []);
+  }, [options]);
 
   return (
-    <div ref={cardRef} className={`w-60 h-60 flex items-center justify-center ${styles.transform3d}`}>
-      <h1 className="italic font-bold text-stone-500 decoration-wavy" style={{ transform: 'translateZ(40px)' }}>
-        weishaodaren
-      </h1>
-      <div className={styles.inner}>
-        <img src={imgUrl} alt="" />
+    <div ref={cardRef} className={`w-[inherit] h-[inherit] ${styles.transform3d}`}>
+      <div className="shadow" style={{ transform: 'translateZ(40px)' }}>
+        {children}
       </div>
     </div>
   );
-};
+});
 
 export default HoverCard;

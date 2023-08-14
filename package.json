@@ -43,6 +43,7 @@
     "vite": "^4.4.9"
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^1.16.2",
     "@ant-design/happy-work-theme": "^1.0.0",
     "antd": "^5.8.2",
     "immer": "^10.0.2",
