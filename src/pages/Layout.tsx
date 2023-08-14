@@ -10,19 +10,19 @@ import { ResizeHandle } from '@/components';
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className="h-screen">
-      <PanelGroup className="text-base" direction="horizontal">
+      <PanelGroup className="text-base" direction="horizontal" autoSaveId="persistenceLayout">
         <Panel className="flex flex-row" defaultSize={20}>
           <div className="panel-centered">{children}</div>
         </Panel>
         <ResizeHandle />
         <Panel className="flex flex-row" minSize={35}>
-          <PanelGroup className="text-base" direction="vertical">
+          <PanelGroup className="text-base" direction="vertical" autoSaveId="persistenceLayoutLeft">
             <Panel className="flex flex-col" defaultSize={35}>
               <div className="panel-centered">{children}</div>
             </Panel>
             <ResizeHandle />
             <Panel className="flex flex-col">
-              <PanelGroup className="text-base" direction="horizontal">
+              <PanelGroup className="text-base" direction="horizontal" autoSaveId="persistenceLayoutTop">
                 <Panel className="flex flex-row">
                   <div className="panel-centered">{children}</div>
                 </Panel>
