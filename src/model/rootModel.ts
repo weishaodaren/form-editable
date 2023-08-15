@@ -2,6 +2,7 @@ import { createContext, useContext, createElement, useRef } from 'react';
 import type { PropsWithChildren } from 'react';
 
 import { useStore, createStore } from 'zustand';
+import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import type { Selector } from './type';
@@ -32,20 +33,24 @@ function createRootStore(initialProps?: Partial<RootStoreProps>) {
     bears: 0,
   };
 
-  return createStore(
-    immer<RootStoreState>(set => ({
-      ...defaultProps,
-      ...initialProps,
-      bears: 0,
-      increasePopulation: () =>
-        set(state => {
-          state.bears += 1;
-        }),
-      removeAllBears: () =>
-        set(state => {
-          state.bears = 0;
-        }),
-    })),
+  return createStore<RootStoreState>()(
+    persist(
+      immer(set => ({
+        ...defaultProps,
+        ...initialProps,
+        increasePopulation: () =>
+          set(state => {
+            ++state.bears;
+          }),
+        removeAllBears: () =>
+          set(state => {
+            state.bears = 10;
+          }),
+      })),
+      {
+        name: 'root-storage',
+      },
+    ),
   );
 }
 
@@ -66,10 +71,10 @@ const RootProvider = ({ children, ...props }: PropsWithChildren<RootStoreProps>)
 /**
  * Hook
  * @description 获取上下文
- * @param {(state: RootStoreProps) => T} selector
+ * @param {Selector} selector
  * @returns {RootStore}
  */
-function useRootStore<T>(selector: Selector<RootStoreProps, T>): T {
+function useRootStore<T>(selector: Selector<RootStoreState, T>): T {
   const store = useContext(rootContext);
   if (!store) throw new Error('useRootStore must be used within a RootProvider');
   return useStore(store, selector);
