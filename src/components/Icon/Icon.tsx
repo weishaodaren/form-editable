@@ -7,6 +7,7 @@ type IconProps = {
   type: IconType;
 };
 
+// million-ignore
 const Icon: FC<IconProps> = ({ className = '', type }) => {
   let path = '';
   switch (type) {

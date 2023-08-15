@@ -59,7 +59,7 @@ const HoverCard = memo(({ children, ...option }: HoverCardProps & PropsWithChild
     Tilt.init(current, { ...defaultOption, ...options });
 
     return () => {
-      current.vanillaTilt.destroy?.();
+      current?.vanillaTilt?.destroy?.();
     };
   }, [options]);
 

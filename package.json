@@ -47,6 +47,7 @@
     "@ant-design/happy-work-theme": "^1.0.0",
     "antd": "^5.8.2",
     "immer": "^10.0.2",
+    "million": "^2.5.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-resizable-panels": "^0.0.54",
