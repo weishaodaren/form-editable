@@ -3,8 +3,6 @@ import { useRef, useEffect, memo, useMemo } from 'react';
 
 import Tilt from 'vanilla-tilt';
 
-import styles from './index.module.css';
-
 const defaultOption = {
   reverse: false, // reverse the tilt direction
   max: 45, // max tilt rotation (degrees)
@@ -64,7 +62,7 @@ const HoverCard = memo(({ children, ...option }: HoverCardProps & PropsWithChild
   }, [options]);
 
   return (
-    <div ref={cardRef} className={`w-[inherit] h-[inherit] ${styles.transform3d}`}>
+    <div ref={cardRef} className="w-[inherit] h-[inherit] transform-3d">
       <div className="shadow" style={{ transform: 'translateZ(40px)' }}>
         {children}
       </div>
