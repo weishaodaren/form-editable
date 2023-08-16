@@ -16,12 +16,12 @@ const Panel = () => {
 
   return (
     <div className="w-full">
-      {widgets.map((widget, index) => {
+      {Array.from(widgets).map(([key, widget]) => {
         const Component = renderWidget(widget.name);
         return (
           Component && (
-            <HoverCard key={index}>
-              <Component key={index} type="primary" block>
+            <HoverCard key={key}>
+              <Component type="primary" block>
                 3asdkjahsdkjhaskdj
               </Component>
             </HoverCard>

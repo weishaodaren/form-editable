@@ -1,8 +1,10 @@
 import { createContext, useContext, createElement, useRef } from 'react';
 import type { PropsWithChildren } from 'react';
 
-import { merge } from 'lodash-es';
+import { enableMapSet } from 'immer';
+import { merge, uniqueId } from 'lodash-es';
 import { useStore, createStore } from 'zustand';
+import type { StorageValue } from 'zustand/middleware';
 import { persist, devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
@@ -10,15 +12,19 @@ import type { ConfigurationSlice } from './slice';
 import { createConfigurationSlice } from './slice';
 import type { Selector } from './type';
 
+import type { WidgetProps } from '@/shared/type';
+
+enableMapSet();
+
 interface RootStoreProps {
   bears: number;
-  widgets: any[];
+  widgets: Map<string, WidgetProps>;
 }
 
 interface RootStoreState extends RootStoreProps, ConfigurationSlice {
   increasePopulation: () => void;
   removeAllBears: () => void;
-  addWidget: (widget: any) => void;
+  addWidget: (widget: Partial<WidgetProps>) => void;
   reset: () => void;
 }
 
@@ -37,7 +43,7 @@ const rootContext = createContext<RootStore | null>(null);
 function createRootStore(initialProps?: Partial<RootStoreProps>) {
   const initialState: RootStoreProps = {
     bears: 0,
-    widgets: [],
+    widgets: new Map(),
   };
 
   return createStore<RootStoreState>()(
@@ -53,7 +59,7 @@ function createRootStore(initialProps?: Partial<RootStoreProps>) {
           removeAllBears: () =>
             set(state => {
               state.bears = 0;
-              state.widgets = [];
+              state.widgets.clear();
             }),
           reset: () => {
             set(initialState);
@@ -61,12 +67,36 @@ function createRootStore(initialProps?: Partial<RootStoreProps>) {
           // 添加组件
           addWidget: widget =>
             set(state => {
-              state.widgets.push(widget);
+              const key = uniqueId();
+              state.widgets.set(key, widget as WidgetProps);
             }),
         })),
       ),
       {
         name: 'root-storage',
+        storage: {
+          getItem: name => {
+            const stringValue = localStorage.getItem(name);
+            if (!stringValue) return null;
+            const { state } = JSON.parse(stringValue) as StorageValue<RootStoreProps>;
+            return {
+              state: {
+                ...state,
+                widgets: new Map(state.widgets),
+              },
+            };
+          },
+          setItem: (name, newValue: StorageValue<RootStoreProps>) => {
+            const stringValue = JSON.stringify({
+              state: {
+                ...newValue.state,
+                widgets: Array.from(newValue.state.widgets.entries()),
+              },
+            });
+            localStorage.setItem(name, stringValue);
+          },
+          removeItem: name => localStorage.removeItem(name),
+        },
       },
     ),
   );
