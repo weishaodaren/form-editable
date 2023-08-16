@@ -20,7 +20,6 @@ const Draggable: FC<DraggableProps & PropsWithChildren> = ({ children, id = 'Dra
   };
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <button ref={setNodeRef} style={style} {...listeners} {...attributes}>
       {children}
     </button>
