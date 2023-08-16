@@ -33,7 +33,7 @@ type HoverCardProps = Partial<typeof defaultOption>;
 /**
  * 卡片悬浮
  */
-const HoverCard = memo(({ children, ...option }: HoverCardProps & PropsWithChildren) => {
+const HoverCard = memo(({ children, ...option }: PropsWithChildren<HoverCardProps>) => {
   /**
    * Ref
    */

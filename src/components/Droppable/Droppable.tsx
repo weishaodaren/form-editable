@@ -6,7 +6,7 @@ type DroppableProps = {
   id: string;
 };
 
-const Droppable: FC<DroppableProps & PropsWithChildren> = ({ children, id = 'Droppable' }) => {
+const Droppable: FC<PropsWithChildren<DroppableProps>> = ({ children, id = 'Droppable' }) => {
   /**
    * Hook
    */

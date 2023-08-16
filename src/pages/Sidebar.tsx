@@ -2,7 +2,7 @@ import { Card, Avatar } from 'antd';
 
 import { HoverCard } from '@/components';
 import { useRootStore } from '@/model';
-import { widgetsConfig } from '@/shared';
+import { widgetsValues } from '@/shared/widgets';
 
 const { Meta } = Card;
 
@@ -17,13 +17,13 @@ const Sidebar = () => {
    */
   const addWidget = useRootStore(state => state.addWidget);
 
-  return widgetsConfig.map(widget => (
-    <div key={widget.title} className=" w-60 h-auto">
+  return widgetsValues.map(widget => (
+    <div key={widget.name} className=" w-60 h-auto">
       <HoverCard>
         <Card
           onClick={() => addWidget(widget)}
           cover={<img src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" alt="cover" />}>
-          <Meta avatar={<Avatar src={avatarUrl} />} title={widget.title} description={`${widget.title} widget`} />
+          <Meta avatar={<Avatar src={avatarUrl} />} title={widget.name} description={widget.description} />
         </Card>
       </HoverCard>
     </div>

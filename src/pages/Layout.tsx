@@ -17,7 +17,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
     <div className="h-screen">
       <PanelGroup className="text-base" direction="horizontal" autoSaveId="persistenceLayoutLeft">
         <Panel className="flex flex-row" defaultSize={10}>
-          <div className="panel-centered flex grow flex-row flex-wrap justify-stretch justify-items-center">
+          <div className="panel-centered flex grow flex-row flex-wrap items-start justify-stretch justify-items-center">
             <Sidebar />
           </div>
         </Panel>

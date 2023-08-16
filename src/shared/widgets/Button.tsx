@@ -1,13 +1,12 @@
-import type { FC } from 'react';
-
 import type { ButtonProps } from 'antd';
 import { Button as AntdButton } from 'antd';
 
-/**
- * Custom button component
- */
-const Button: FC<ButtonProps> = (...props) => {
-  return <AntdButton {...props}>Button</AntdButton>;
-};
+function createButton() {
+  return {
+    name: 'Button',
+    description: 'Button widget',
+    render: (params: ButtonProps) => <AntdButton {...params} />,
+  };
+}
 
-export default Button;
+export { createButton };

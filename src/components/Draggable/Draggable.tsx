@@ -7,7 +7,7 @@ type DraggableProps = {
   id: string;
 };
 
-const Draggable: FC<DraggableProps & PropsWithChildren> = ({ children, id = 'Draggable' }) => {
+const Draggable: FC<PropsWithChildren<DraggableProps>> = ({ children, id = 'Draggable' }) => {
   /**
    * Hook
    */

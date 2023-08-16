@@ -18,40 +18,52 @@ import {
   Upload,
 } from 'antd';
 
-import Button from './Button';
+import { createButton } from './Button';
 
 const widgets = [
-  Button,
-  Input,
-  AutoComplete,
-  Cascader,
-  Checkbox,
-  ColorPicker,
-  DatePicker,
-  InputNumber,
-  Mentions,
-  Radio,
-  Rate,
-  Select,
-  Slider,
-  Switch,
-  TimePicker,
-  Transfer,
-  TreeSelect,
-  Upload,
+  createButton,
+  () => null,
+  // Button,
+  // Input,
+  // AutoComplete,
+  // Cascader,
+  // Checkbox,
+  // ColorPicker,
+  // DatePicker,
+  // InputNumber,
+  // Mentions,
+  // Radio,
+  // Rate,
+  // Select,
+  // Slider,
+  // Switch,
+  // TimePicker,
+  // Transfer,
+  // TreeSelect,
+  // Upload,
 ];
 
-const widgetsConfig = widgets.map(widget => ({
-  title: widget.displayName,
-  redner: () => widget,
-}));
+type WidgetOption = ReturnType<(typeof widgets)[number]>;
 
-const widgetsMap = widgets.reduce(
-  (acc, widget) => {
-    acc[widget.displayName as string] = widget;
-    return acc;
-  },
-  {} as { [key: string]: (typeof widgets)[number] },
-);
+/**
+ * 生成组件映射
+ * @returns {Map<string, Object>}
+ */
+function gengeateWidgetMap() {
+  const widgetsMap = widgets
+    .map(createWidget => {
+      const widget = createWidget?.();
+      if (!widget) return null;
 
-export { widgets, widgetsConfig, widgetsMap };
+      const { name } = widget;
+      return [name, widget];
+    })
+    .filter(Boolean);
+
+  return new Map(widgetsMap as [string, NonNullable<WidgetOption>][]);
+}
+
+const widgetsMap = gengeateWidgetMap();
+const widgetsValues = Array.from(widgetsMap, ([, widget]) => widget);
+
+export { widgets, widgetsValues, widgetsMap };
