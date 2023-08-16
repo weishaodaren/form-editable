@@ -27,6 +27,7 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     "react/react-in-jsx-scope": 0,
+    "react/jsx-props-no-spreading": 0,
     'react-refresh/only-export-components': [
       1,
       {
