@@ -34,6 +34,7 @@ module.exports = {
         allowConstantExport: true
       },
     ],
+    "@typescript-eslint/no-non-null-assertion": 0,
     "import/no-unresolved": [
       2,
       {

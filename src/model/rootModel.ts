@@ -19,6 +19,7 @@ enableMapSet();
 interface RootStoreProps {
   bears: number;
   widgets: Map<string, WidgetProps>;
+  selectedWidgetKey: string | null;
 }
 
 interface RootStoreState extends RootStoreProps, ConfigurationSlice {
@@ -44,6 +45,7 @@ function createRootStore(initialProps?: Partial<RootStoreProps>) {
   const initialState: RootStoreProps = {
     bears: 0,
     widgets: new Map(),
+    selectedWidgetKey: null,
   };
 
   return createStore<RootStoreState>()(
@@ -69,6 +71,7 @@ function createRootStore(initialProps?: Partial<RootStoreProps>) {
             set(state => {
               const key = uniqueId();
               state.widgets.set(key, widget as WidgetProps);
+              state.selectedWidgetKey = key;
             }),
         })),
       ),

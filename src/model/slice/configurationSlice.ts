@@ -1,3 +1,4 @@
+import type { ButtonProps } from 'antd';
 import type { StateCreator } from 'zustand';
 
 import type { RootStoreState } from '../rootModel';
@@ -6,6 +7,7 @@ import type { PersistMiddleware, DevtoolsMiddleware, ImmerMiddleware } from '../
 interface ConfigurationSlice {
   fishes: number;
   addFish: () => void;
+  changeWidgetOptions: (props: ButtonProps) => void;
 }
 
 /**
@@ -21,6 +23,15 @@ const createConfigurationSlice: StateCreator<
   addFish: () =>
     set(state => {
       ++state.fishes;
+    }),
+  changeWidgetOptions: props =>
+    set(state => {
+      const { widgets, selectedWidgetKey } = state;
+      if (!selectedWidgetKey) return;
+
+      if (widgets.has(selectedWidgetKey)) {
+        widgets.get(selectedWidgetKey)!.props = props;
+      }
     }),
 });
 

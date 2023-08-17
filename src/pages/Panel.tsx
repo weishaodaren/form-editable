@@ -1,4 +1,3 @@
-import { HoverCard } from '@/components';
 import { useRootStore } from '@/model';
 import { widgetsMap } from '@/shared/widgets';
 
@@ -17,14 +16,16 @@ const Panel = () => {
   return (
     <div className="w-full">
       {Array.from(widgets).map(([key, widget]) => {
+        if (!widget) return null;
+
         const Component = renderWidget(widget.name);
+        const { props } = widget;
+
         return (
           Component && (
-            <HoverCard key={key}>
-              <Component type="primary" block>
-                3asdkjahsdkjhaskdj
-              </Component>
-            </HoverCard>
+            <Component key={key} {...props}>
+              3asdkjahsdkjhaskdj
+            </Component>
           )
         );
       })}
