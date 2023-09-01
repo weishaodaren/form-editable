@@ -30,7 +30,10 @@ const createConfigurationSlice: StateCreator<
       if (!selectedWidgetKey) return;
 
       if (widgets.has(selectedWidgetKey)) {
-        widgets.get(selectedWidgetKey)!.props = props;
+        widgets.get(selectedWidgetKey)!.props = {
+          ...widgets.get(selectedWidgetKey)!.props,
+          ...props,
+        };
       }
     }),
 });
